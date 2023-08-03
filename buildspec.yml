@@ -12,8 +12,8 @@ phases:
       - echo log in to Amazon ECR...
       - aws --version
       - echo $AWS_DEFAULT_REGION
-      - aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 419292976033.dkr.ecr.ap-southeast-2.amazonaws.com/node-ecs
-      - REPOSITORY_URI=419292976033.dkr.ecr.ap-southeast-2.amazonaws.com/node-ecs
+      - aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 419292976033.dkr.ecr.ap-southeast-2.amazonaws.com/node-mysql
+      - REPOSITORY_URI=419292976033.dkr.ecr.ap-southeast-2.amazonaws.com/node-mysql
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
@@ -28,6 +28,6 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo write definitions file...
-      - printf '[{"name":"ecs-nodejs","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"ecs-nodejs-mysql","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
