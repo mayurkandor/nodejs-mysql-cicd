@@ -5,11 +5,21 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
+// const pool = mysql.createPool({
+//   host: "13.236.118.202",
+//   user: "root",
+//   password: "admin123",
+//   database: "portal",
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0,
+// });
+
 const pool = mysql.createPool({
-  host: "13.54.118.91",
-  user: "root",
-  password: "admin123",
-  database: "portal",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
